@@ -18,4 +18,28 @@ namespace hooks
 	using CreateMoveFn = bool(__thiscall*)(IClientModeShared*, float, CUserCmd*) noexcept;
 	inline CreateMoveFn CreateMoveOriginal = nullptr;
 	bool __stdcall CreateMove(float frameTime, CUserCmd* cmd) noexcept;
+
+	// function signature of DrawModelFn
+	using DrawmodelFn = void(__thiscall*)(
+		void*,
+		void*,
+		const CDrawModelInfo&,
+		CMatrix3x4*,
+		float*,
+		float*,
+		const CVector&,
+		const std::int32_t
+	) noexcept;
+
+	inline DrawmodelFn DrawModelOriginal = nullptr;
+
+	void __stdcall DrawModel(
+		void* results,
+		const CDrawModelInfo& info,
+		CMatrix3x4* bones,
+		float* flexWeights,
+		float* flexDelayedWeights,
+		const CVector& modelOrigin,
+		const std::int32_t flags
+	) noexcept;
 }

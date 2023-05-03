@@ -3,7 +3,6 @@
 
 class CKeyValues {
 public:
-	// https://gitlab.com/KittenPopo/csgo-2018-source/-/blob/main/tier1/keyvalues.cpp#L3652
 	static CKeyValues* FromString(const char* name, const char* value) noexcept
 	{
 		static std::uintptr_t functionAddress =

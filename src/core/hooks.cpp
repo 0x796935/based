@@ -25,6 +25,13 @@ void hooks::Setup() noexcept
 		reinterpret_cast<void**>(&CreateMoveOriginal)
 	);
 
+	// DrawModel hook
+	MH_CreateHook(
+		memory::Get(interfaces::studioRender, 29),
+		&DrawModel,
+		reinterpret_cast<void**>(&DrawModelOriginal)
+	);
+
 	MH_EnableHook(MH_ALL_HOOKS);
 }
 
@@ -70,4 +77,18 @@ bool __stdcall hooks::CreateMove(float frameTime, CUserCmd* cmd) noexcept
 	}
 
 	return false;
+}
+
+void __stdcall hooks::DrawModel(
+	void* results,
+	const CDrawModelInfo& info,
+	CMatrix3x4* bones,
+	float* flexWeights,
+	float* flexDelayedWeights,
+	const CVector& modelOrigin,
+	const std::int32_t flags
+) noexcept
+{
+	// draw the model normally
+	DrawModelOriginal(interfaces::studioRender, results, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
 }
